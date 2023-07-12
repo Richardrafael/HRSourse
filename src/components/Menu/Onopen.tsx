@@ -1,7 +1,7 @@
 
 import { FaBars, FaTimes } from 'react-icons/fa';
 import  '../../global.css'
-import { ContainerMenuOpen, MenuItem, MenuList, MenuWrapper, MenunoOpen, Open, Texto } from './style';
+import { H1, MenuItem, MenuList, MenuWrapper, MenunoOpen, Open, Texto } from './style';
 import { Link } from 'react-router-dom';
 // import Toogle from '../toogle';
 // import { motion } from 'framer-motion';
@@ -63,7 +63,7 @@ const Bar  = ({isOpen   , visible ,  } : BarProps) => {
     
       
     <MenunoOpen>
-        <ContainerMenuOpen>
+        {/* <ContainerMenuOpen> */}
         <div>
             <Open 
                 onClick={() => isOpen( )}>
@@ -76,9 +76,9 @@ const Bar  = ({isOpen   , visible ,  } : BarProps) => {
                 </Open>
         </div>
         <div>
-                <h1 >RhSource</h1> 
+                <H1 >RhSource</H1> 
         </div>
-       </ContainerMenuOpen>
+       {/* </ContainerMenuOpen> */}
     </MenunoOpen>
     
    

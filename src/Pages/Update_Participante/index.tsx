@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postar } from '../../service/axiosinstance';
 import Menu from '../../components/Menu';
-import { Botao, Container, Formu, Input, Listar, Span, Titulo } from '../CadastroUsuario/style';
+import { Botao, Container, Formu, Input, Span, Titulo } from "../../style";
 import { useForm } from "react-hook-form"
 // import { FaSearch } from "react-icons/fa";
 import { z } from "zod"

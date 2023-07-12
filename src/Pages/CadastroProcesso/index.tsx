@@ -11,7 +11,7 @@ import {
   Input, 
   Span,
   Titulo
- } from "../CadastroUsuario/style"
+ } from "../../style"
 import { ToastContainer, toast } from "react-toastify"
 import Menu from "../../components/Menu";
 import { Navigate } from "react-router-dom";
@@ -38,6 +38,8 @@ const createUserFormSchema  = z.object ({
   .toLowerCase() ,
   cargo : z.string() ,
   QuantAprovado : z.string().nonempty("QuantidadeAprovados é obrigatório"),
+  modalidade:z.string().nonempty("escolha um modalidade"),
+  localidade:z.string(),
   DataInicio: z.coerce.date().transform(data => {
  const dataObj = new Date(data);
   const dia = String(dataObj.getDate() + 1).padStart(2, "0");
@@ -141,13 +143,13 @@ function CadastroPlataforma() {
           {...register('QuantAprovado')}
           />
           {errors.QuantAprovado && <Span>{errors.QuantAprovado.message}</Span>}
-          <Input $primary  
+          <Input $second  
           type="date" 
           placeholder="Data de Inicio"
           {...register('DataInicio')}
           />
           {errors.DataInicio && <Span>{errors.DataInicio.message}</Span>}
-          <Input $primary 
+          <Input $second 
           type="date" 
           placeholder="Data fim"
           {...register('DataFim')}
@@ -158,7 +160,19 @@ function CadastroPlataforma() {
           placeholder="Cargo"
           {...register('cargo')}
           />
-          {errors.cargo && <Span>{errors.cargo.message}</Span>}
+          {errors.modalidade && <Span>{errors.modalidade.message}</Span>}
+          <Input $primary  
+          type="text" 
+          placeholder="Modalidade"
+          {...register('cargo')}
+          />
+           {errors.localidade && <Span>{errors.localidade.message}</Span>}
+          <Input $primary  
+          type="text" 
+          placeholder="Localidade"
+          {...register('cargo')}
+          />
+          
           {enviado && (
             <>
                 <Navigate to="/listagemProcesso" replace={true} />
@@ -167,7 +181,8 @@ function CadastroPlataforma() {
           {loading ?
           <Botao type="submit">
             Cadastrar
-            </Botao>:
+            </Botao>
+            :
             <>
             <Span>carregando ...</Span>
             </>}

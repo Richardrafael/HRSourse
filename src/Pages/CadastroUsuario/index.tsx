@@ -8,14 +8,12 @@ import api, { postar } from "../../service/axiosinstance"
 import { 
   Botao,
   Container, 
-  // ContainerInput, 
   Formu, 
   Input, 
   Select, 
-  // Inputbuscas,
   Span,
   Titulo
- } from "./style"
+ } from "../../style"
 // import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
 import Menu from "../../components/Menu";

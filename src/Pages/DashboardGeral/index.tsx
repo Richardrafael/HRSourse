@@ -1,5 +1,5 @@
 import Menu from "../../components/Menu"
-import { Container, Titulo } from "../CadastroUsuario/style"
+import { Container, Titulo } from "../../style"
 
 
 function Dashbord() {

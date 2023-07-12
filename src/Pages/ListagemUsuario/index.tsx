@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import Menu from "../../components/Menu"
 import { 
-  Botao,
   Botaoedit,
   Container, 
   Div, 
@@ -10,7 +9,7 @@ import {
   Td, 
   Titulo,
   Tr
- } from "../CadastroUsuario/style"
+ } from "../../style"
 import { postar } from "../../service/axiosinstance"
 import { FaEdit, FaTrash } from "react-icons/fa"
 import { Link } from "react-router-dom"

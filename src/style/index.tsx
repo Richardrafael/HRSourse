@@ -8,82 +8,63 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   color: white;
- padding-top: 2rem;
+  padding-top: 2rem;
   justify-content: center;
   align-items: center;
 `;
+
 export const Titulo = styled.h1`
  color: white;
  font-size: xx-large;
  font-weight: bold;
 `
 export const Formu = styled.form`
-width: 75%;
-/* height */
+width: 90vw;
 display:  flex ;
 flex-direction: column;
-/* background-color: #181919; */
-padding: 2rem;
+gap: 1rem;
+overflow-x: hidden;
 align-items: center;
-border-radius: 6rem;
-min-height: 40rem;
-gap: 10px;
-
+max-height: 70vh;
+overflow-y: auto;
 `;
 
 export const Listar = styled.div`
 width: 75%;
-/* height */
 display:  flex ;
+margin-top:5rem ;
 flex-direction: column;
-/* background-color: #53a5a5; */
 padding: 2rem;
-/* justify-content: ; */
 align-items: center;
 border-radius: 6rem;
-min-height: 40rem;
 gap: 10px;
+min-height: 40rem;
 
 `;
 
-// export const Table = styled.`
-  
-
-// `;
-
-export const ContainerInput = styled.div`
- display: flex;
- align-items: start;
- gap: 1rem;
- padding: 0.3rem;
- /* padding-left: 1rem ; */
- flex-direction: column;
-`
-
-export const Input = styled.input<{ $primary?: boolean; }>`
+export const Input = styled.input<{ $primary?: boolean; $second?: boolean; }>`
  padding-left: 1rem;
- background-color: ${props => props.$primary ? "#ffffff" : "#ffffffdb"};
+ background-color: ${props =>
+ props.$primary ? '#ffffff' : props.$second ? '#ffff' : '#ffffffdb'};
  outline: none;
  border: none;
+ /* padding:  ${props =>
+ props.$primary ? '10px' : props.$second ? '17px' : "10rem"};;
+ padding-left: 1rem ; */
  border-radius: 40rem;
- padding: 0.3rem;
- padding-left: 1rem ;
- height: 2rem;
- font-size: 1rem;
- width: 90%;
+ width: 100%;
 `;
 
 export const Select = styled.select<{ $primary?: boolean; }>`
- padding-left: 1rem;
  background-color: ${props => props.$primary ? "#ffffff" : "#ffffffdb"};
  outline: none;
  border: none;
  border-radius: 40rem;
- padding: 0.3rem;
- padding-left: 1rem ;
- height: 2.35rem;
+ /* padding: 10px; */
+ /* padding: 1rem 1rem 1rem 0 ; */
+ height: 2.20rem;
  font-size: 1rem;
- width: 92%;
+ width: 100%;
 `;
 
 export const Inputbuscas = styled.input`
@@ -137,7 +118,6 @@ export const Td = styled.td`
   text-align: center;
   border:  1px ;
   color: black;
-  /* justify-content: center; */
   width: 100%;
   background-color: white;
 `
@@ -162,11 +142,4 @@ export  const Botaoedit = styled.button `
   border: none;
   cursor: pointer;
   background-color: #fff;
-
 `
-// export const ContainerEdit = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: row;
-//   width: 100%;
-// `
