@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import Menu from "../../components/Menu"
 import { 
   Botaoedit,
+  Center,
   Container, 
+  ContainerListagem, 
   Div, 
   Listar, 
   Table, 
   Td, 
+  Th, 
   Titulo,
   Tr
  } from "../../style"
@@ -56,32 +59,32 @@ const apaga = (id : number) =>{
     <>
      <Menu/>
      <Container>
+      <Center>
+      <Titulo>Participantes</Titulo>
+      <ContainerListagem>
       <Listar>
-        <Titulo>Participantes</Titulo>
-        <Table>
-          <thead>
+        <Table>   
             <Tr>
-              <th>
+              <Th>
                 Nome
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Telefone
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Gmail
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Processo
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Edição
-              </th>
+              </Th>
             </Tr>
-          </thead>
           <tbody>
           { participantes &&  <> {
             participantes.map((particante , i) => (
-              <tr key={i}>
+              <Tr key={i}>
               <Td>
                 {particante?.nome}
               </Td>
@@ -108,7 +111,7 @@ const apaga = (id : number) =>{
                 
                
               </Td>
-              </tr>
+              </Tr>
             ))
           }</>}
           </tbody>
@@ -117,6 +120,10 @@ const apaga = (id : number) =>{
       
         
       </Listar>
+      </ContainerListagem>
+      </Center>
+       
+      
      </Container>
     </>
     

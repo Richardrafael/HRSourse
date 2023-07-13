@@ -8,8 +8,12 @@ import api, { postar } from "../../service/axiosinstance"
 import { 
   Botao,
   Container, 
+  Container_Formulario, 
+  Container_Input, 
   Formu, 
   Input, 
+  Label, 
+  Porvolta, 
   Select, 
   Span,
   Titulo
@@ -159,15 +163,7 @@ function CadastroUsuarios() {
 
   return (
     <>
-     
-
-    <Container>
-    <Menu/>
-      <Formu 
-      action="" 
-      onSubmit={handleSubmit(createUser)}
-      >
-        <ToastContainer
+     <ToastContainer
       position="bottom-right"
       autoClose={5000}
       hideProgressBar={false}
@@ -179,21 +175,39 @@ function CadastroUsuarios() {
       pauseOnHover
       theme="colored"
       />
-          <Titulo>Cadastro Participante</Titulo>
+
+    <Container>
+    <Menu/>
+    <Container_Formulario>
+    <Titulo>Cadastro Participante</Titulo>
+    
+      <Formu 
+      action="" 
+      onSubmit={handleSubmit(createUser)}
+      >
+        <Container_Input>
+          <Porvolta>
+          <Label htmlFor="nome">Nome</Label>
          <Input 
           $primary type="text" 
           placeholder="Nome"
           {...register('nome')}
           />
           {errors.nome && <Span>{errors.nome.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+            <Label htmlFor="email">Email</Label>
           <Input 
-          $primary  type="email"
-          placeholder="Email"
-          {...register('email')}
-          />
-          {errors.email && <Span>{errors.email.message}</Span>}
-          <Select  
-          id="perfil" 
+                    $primary  type="email"
+                    placeholder="Email"
+                    {...register('email')}
+                    />
+                    {errors.email && <Span>{errors.email.message}</Span>}
+          </Porvolta>
+         <Porvolta>
+          <Label htmlFor="Processo">Processo</Label>
+         <Select  
+          id="processo" 
           $primary
           // placeholder="Processo Seletivo"
           {...register('processo_seletivo')}
@@ -206,22 +220,25 @@ function CadastroUsuarios() {
           ))}
           </Select>
           {errors.processo_seletivo && <Span>{errors.processo_seletivo.message}</Span>}
-          <Input $primary 
+
+         </Porvolta>
+         <Porvolta>
+          <Label htmlFor="Telefone">Telefone</Label>
+         <Input $primary 
           type="tel" 
           placeholder="Telefone"
           {...register('telefone')}
           />
           {errors.telefone && <Span>{errors.telefone.message}</Span>}
-          {/* <Input $primary  
-          type="text" 
-          placeholder="Cargo"
-          {...register('cargo')}
-          />
-          {errors.cargo && <Span>{errors.cargo.message}</Span>} */}
+         </Porvolta>
+          <Porvolta>
+            <Label htmlFor="Cep">Cep</Label>
           <Input $primary
           type="number"
           placeholder="Digite seu Cep" 
           onChange={(e => setCep(e.target.value))} />
+          </Porvolta>
+          
           
 
           { 
@@ -236,16 +253,41 @@ function CadastroUsuarios() {
               //  aparece todos os dado de cep se for maior q 7
               abrecep  && 
               <>
-              <Input type="text" disabled  value={dados?.logradouro}/>
-              <Input type="text" disabled  value={dados?.bairro}/>
+              <Porvolta>
+                <Label htmlFor="logradouro">Logradouro</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.logradouro}/>
+
+              </Porvolta>
+              <Porvolta>
+                <Label htmlFor="Bairro">Bairro</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.bairro}/>                
+              </Porvolta>
               
               {
-              // complemento existe parace na tela 
               dados?.complemento && 
-                <Input type="text" disabled  value={dados?.complemento}/>
+              <Porvolta>
+              <Label htmlFor="complemento">Complemento</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.complemento}/>
+              </Porvolta> 
               }
-              <Input type="text" disabled  value={dados?.localidade}/>
-              <Input type="text" disabled  value={dados?.uf}/>
+             <Porvolta>
+              <Label htmlFor="Localidade">Localidade</Label>
+               <Input type="text" 
+               disabled 
+                value={dados?.localidade}/>
+              </Porvolta>
+              <Porvolta>
+                <Label htmlFor="Estado">Estado</Label>
+              <Input type="text" 
+              disabled 
+               value={dados?.uf}/>
+              </Porvolta>
               </>
               }
           </> : <h1>carregando</h1>}  
@@ -257,11 +299,14 @@ function CadastroUsuarios() {
                 <Navigate to="/listagemUsuario" replace={true} />
             </> 
          )}
-          
+          </Container_Input>
           <Botao type="submit">
             Cadastrar
             </Botao>
       </Formu>
+
+    </Container_Formulario>
+    
       </Container>
     </>
   )

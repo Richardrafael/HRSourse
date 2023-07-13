@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postar } from '../../service/axiosinstance';
 import Menu from '../../components/Menu';
-import { Botao, Container, Formu, Input, Span, Titulo } from "../../style";
+import { Botao, Container, Container_Formulario, Container_Input, Formu, Input, Label, Porvolta, Span, Titulo } from "../../style";
 import { useForm } from "react-hook-form"
 // import { FaSearch } from "react-icons/fa";
 import { z } from "zod"
@@ -42,6 +42,8 @@ const createUserFormSchema  = z.object ({
   .nonempty("Empresa é obrigatório")
   .toLowerCase() ,
   cargo : z.string() ,
+  modalidade:z.string().nonempty("escolha um modalidade"),
+  localidade:z.string(),
   QuantAprovado : z.string().nonempty("QuantidadeAprovados é obrigatório"),
   DataInicio: z.coerce.date().transform(data => {
  const dataObj = new Date(data);
@@ -162,10 +164,7 @@ const sucesso = () => {
   
   return (
     <>
-    <Menu/>
-    <Container>
-    
-        <ToastContainer
+     <ToastContainer
       position="bottom-right"
       autoClose={5000}
       hideProgressBar={false}
@@ -177,83 +176,108 @@ const sucesso = () => {
       pauseOnHover
       theme="colored"
       />
-         
-         { loading  ?
-      
-         <>
-            <Formu 
-         action="" 
-         onSubmit={handleSubmit(createUser)}
-         >
-           <Titulo>Atualiza Processo</Titulo>
-           {error && <Span>{error}</Span>}
+    <Container>
+    <Menu/>
+    <Container_Formulario>
+    <Titulo>Atualiza Processos</Titulo>
+    { loading ? <Formu 
+      action="" 
+      onSubmit={handleSubmit(createUser)}
+      >
+        
+          {error && <Span>{error}</Span>}
+          <Container_Input>
+          <Porvolta>
+          <Label htmlFor="Nome">Nome</Label>
+         <Input 
+          $primary type="text" 
+          placeholder="Nome"
+          defaultValue={nome}
+          {...register('nome')}
+          />
+          {errors.nome && <Span>{errors.nome.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="empresa">Empresa</Label>
           <Input 
-            $primary type="text" 
-            placeholder="Nome"
-            // value={participantes?.nome}
-            disabled={visible}
-            defaultValue={nome}
-            {...register('nome')}
-            />
-            {errors.nome && <Span>{errors.nome.message}</Span>}
-            <Input 
-            $primary  type="text"
-            placeholder="Empresa"
-            defaultValue={empresa}
-            disabled={visible}
-            {...register('empresa')}
-            />
-            {errors.empresa && <Span>{errors.empresa.message}</Span>}
-            <Input $primary  
-            type="text" 
-            defaultValue={QuantAprovado}
-            disabled={visible}
-            placeholder="Quantidade Aprovados"
-            {...register('QuantAprovado')}
-            />
-            {errors.QuantAprovado && <Span>{errors.QuantAprovado.message}</Span>}
-            <Input $primary 
-            type="text" 
-            defaultValue={cargo}
-            placeholder="Cargo"
-            disabled={visible}
-            {...register('cargo')}
-            />
-            {errors.cargo && <Span>{errors.cargo.message}</Span>}
+          $primary  type="text"
+          defaultValue={empresa}
+          placeholder="Empresa"
+          {...register('empresa')}
+          />
+          {errors.empresa && <Span>{errors.empresa.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="QuantAprovado">Quantidade Aprovados</Label>
+          <Input 
+          defaultValue={QuantAprovado}
+          $primary  type="number"
+          placeholder="Quantidade de Aprovados"
+          {...register('QuantAprovado')}
+          />
+          {errors.modalidade && <Span>{errors.modalidade.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="modalidade">Modalidade</Label>
+          <Input $primary  
+          type="text" 
+          placeholder="Modalidade"
+          {...register('cargo')}
+          />
+          {errors.QuantAprovado && <Span>{errors.QuantAprovado.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="data_inicio">Data Inicio</Label>
+          <Input $second  
+          type="date" 
+          defaultValue={data[0]}
+          placeholder="Data de Inicio"
+          {...register('DataInicio')}
+          />
+          {errors.DataInicio && <Span>{errors.DataInicio.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="Data_fim">Data Fim</Label>
+          <Input $second 
+          type="date" 
+          defaultValue={data[1]}
+          placeholder="Data fim"
+          {...register('DataFim')}
+          />
+          {errors.DataFim && <Span>{errors.DataFim.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="localidade">Localidade</Label>
+          <Input $primary  
+          type="text" 
+          placeholder="Localidade"
+          {...register('localidade')}
+          />
+           {errors.localidade && <Span>{errors.localidade.message}</Span>}
           
-             <Input $primary 
-            type="date" 
-            defaultValue={data[0]}
-            disabled={visible}
-            placeholder="Data de Incio"
-            {...register('DataInicio')}
-            />
-            {errors.DataInicio && <Span>{errors.DataInicio.message}</Span>}
-           <Input $primary 
-            type="date" 
-            defaultValue={data[1]}
-            disabled={visible}
-            placeholder="Data de Fim"
-            {...register('DataFim')}
-            />
-            {errors.DataFim && <Span>{errors.DataFim.message}</Span>}
-
-            { visible ? 
-              <div onClick={ editar}>
-                Atualizar
-              </div>
-          : 
-          <>
+          </Porvolta>
+          </Container_Input>
+           {loading ?
           <Botao type="submit">
-                Cadastrar
-                </Botao>
-          </> 
-          }
-            
-           </Formu>
-           </>
-       : <h1>ce</h1>  }
-    </Container>
+            Atualizar
+            </Botao>
+            :
+            <>
+            <Span>carregando ...</Span>
+            </>}
+      </Formu> : 
+      <h1>Carregando</h1>
+      }
+    </Container_Formulario>
+      
+{/*           
+          {enviado && (
+            <>
+                <Navigate to="/listagemProcesso" replace={true} />
+            </> 
+         )} */}
+         
+      </Container>
     </>
     
   )

@@ -2,11 +2,14 @@ import { useEffect, useState } from "react"
 import Menu from "../../components/Menu"
 import { 
   Botaoedit,
+  Center,
   Container, 
+  ContainerListagem, 
   Div, 
   Listar, 
   Table, 
   Td, 
+  Th, 
   Titulo,
   Tr
  } from "../../style"
@@ -66,32 +69,32 @@ function formatarDataPadraoBrasil(data : any) {
     <>
      <Menu/>
      <Container>
-      <Listar>
+      <Center>
         <Titulo>Processos Seletivos</Titulo>
-        <Table>
-          <thead>
+        <ContainerListagem>
+        <Listar>
+        <Table>       
             <Tr>
-              <th>
+              <Th>
                 Nome
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Empresa
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Data Fim
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Quant.Aprovados
-              </th>
-              <th>
+              </Th>
+              <Th>
                 Edição
-              </th>
+              </Th>
             </Tr>
-          </thead>
           <tbody>
           { participantes &&  <> {
             participantes.map((particante , i) => (
-              <tr key={i}>
+              <Tr key={i}>
               <Td>
                 {particante?.nome}
               </Td>
@@ -110,7 +113,7 @@ function formatarDataPadraoBrasil(data : any) {
                   <Botaoedit onClick={() => apaga(particante?.id)}>
                     <FaTrash size={20}></FaTrash>
                   </Botaoedit>
-                  <Link style={{textDecoration:"none" ,}} to={`/EditarProces/${particante?.id}`}>
+                  <Link style={{textDecoration:"none" }} to={`/EditarProces/${particante?.id}`}>
                     <FaEdit></FaEdit>
                   </Link>
                 </Div>
@@ -118,7 +121,7 @@ function formatarDataPadraoBrasil(data : any) {
                 
                
               </Td>
-              </tr>
+              </Tr>
             ))
           }</>}
           </tbody>
@@ -127,6 +130,10 @@ function formatarDataPadraoBrasil(data : any) {
       
         
       </Listar>
+
+        </ContainerListagem>
+      
+      </Center>
      </Container>
     </>
     

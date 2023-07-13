@@ -7,8 +7,12 @@ import { postar } from "../../service/axiosinstance"
 import { 
   Botao,
   Container, 
+  Container_Formulario, 
+  Container_Input, 
   Formu, 
   Input, 
+  Label, 
+  Porvolta, 
   Span,
   Titulo
  } from "../../style"
@@ -104,14 +108,7 @@ function CadastroPlataforma() {
   return (
     <>
      
-
-    <Container>
-    <Menu/>
-      <Formu 
-      action="" 
-      onSubmit={handleSubmit(createUser)}
-      >
-        <ToastContainer
+     <ToastContainer
       position="bottom-right"
       autoClose={5000}
       hideProgressBar={false}
@@ -123,62 +120,83 @@ function CadastroPlataforma() {
       pauseOnHover
       theme="colored"
       />
-          <Titulo>Cadastro Processos</Titulo>
+    <Container>
+    <Menu/>
+    <Container_Formulario>
+    <Titulo>Cadastro Processos</Titulo>
+    <Formu 
+      action="" 
+      onSubmit={handleSubmit(createUser)}
+      >
+        
           {error && <Span>{error}</Span>}
+          <Container_Input>
+          <Porvolta>
+          <Label htmlFor="Nome">Nome</Label>
          <Input 
           $primary type="text" 
           placeholder="Nome"
           {...register('nome')}
           />
           {errors.nome && <Span>{errors.nome.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="empresa">Empresa</Label>
           <Input 
           $primary  type="text"
           placeholder="Empresa"
           {...register('empresa')}
           />
           {errors.empresa && <Span>{errors.empresa.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="QuantAprovado">Quantidade Aprovados</Label>
           <Input 
           $primary  type="number"
           placeholder="Quantidade de Aprovados"
           {...register('QuantAprovado')}
           />
+          {errors.modalidade && <Span>{errors.modalidade.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="modalidade">Modalidade</Label>
+          <Input $primary  
+          type="text" 
+          placeholder="Modalidade"
+          {...register('cargo')}
+          />
           {errors.QuantAprovado && <Span>{errors.QuantAprovado.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="data_inicio">Data Inicio</Label>
           <Input $second  
           type="date" 
           placeholder="Data de Inicio"
           {...register('DataInicio')}
           />
           {errors.DataInicio && <Span>{errors.DataInicio.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="Data_fim">Data Fim</Label>
           <Input $second 
           type="date" 
           placeholder="Data fim"
           {...register('DataFim')}
           />
           {errors.DataFim && <Span>{errors.DataFim.message}</Span>}
-          <Input $primary  
-          type="text" 
-          placeholder="Cargo"
-          {...register('cargo')}
-          />
-          {errors.modalidade && <Span>{errors.modalidade.message}</Span>}
-          <Input $primary  
-          type="text" 
-          placeholder="Modalidade"
-          {...register('cargo')}
-          />
-           {errors.localidade && <Span>{errors.localidade.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+          <Label htmlFor="localidade">Localidade</Label>
           <Input $primary  
           type="text" 
           placeholder="Localidade"
-          {...register('cargo')}
+          {...register('localidade')}
           />
+           {errors.localidade && <Span>{errors.localidade.message}</Span>}
           
-          {enviado && (
-            <>
-                <Navigate to="/listagemProcesso" replace={true} />
-            </> 
-         )}
-          {loading ?
+          </Porvolta>
+          </Container_Input>
+           {loading ?
           <Botao type="submit">
             Cadastrar
             </Botao>
@@ -187,6 +205,15 @@ function CadastroPlataforma() {
             <Span>carregando ...</Span>
             </>}
       </Formu>
+    </Container_Formulario>
+      
+          
+          {enviado && (
+            <>
+                <Navigate to="/listagemProcesso" replace={true} />
+            </> 
+         )}
+         
       </Container>
     </>
   )

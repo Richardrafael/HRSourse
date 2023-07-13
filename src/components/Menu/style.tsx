@@ -16,17 +16,30 @@ export const MenuWrapper = styled.div`
   background-color: #f1f1f1;
   padding: 16px;
   position  : fixed ;
-  padding-top: 10rem;
+  padding-top: 4rem;
   width: 100%;
   height: 100%;
   
 `;
 
 export const Open = styled.button`
- padding: 1rem;
+ padding: 0.7rem ;
+ margin-left: 0.7rem;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 40px;
+  width: 40px;
+ border-radius: 100rem;
  border: none;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
  cursor: pointer;
- &after{
+ &:hover{
+  background-color: #fced1c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+ &:after{
     border: none;
  }
   
@@ -50,7 +63,10 @@ export const MenuItem = styled.div`
 
 export const Texto = styled.span`
   color: #000000;
-  font-size: 3rem;
+  font-size: 2rem;
+  padding: 0.4rem;
+  border-radius: 20rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-weight: 700;
   &:hover {
     color: #666;
@@ -58,9 +74,8 @@ export const Texto = styled.span`
 `;
 
 export const H1 = styled.h1`
-  
   color: #000000;
-  font-size: 2.2rem ;
+  font-size: 1.6rem;
   font-weight: 700;
-  padding-right: 1rem;
+  padding-right: 0.7rem;
 `;

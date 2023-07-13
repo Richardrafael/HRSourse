@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postar } from '../../service/axiosinstance';
 import Menu from '../../components/Menu';
-import { Botao, Container, Formu, Input, Span, Titulo } from "../../style";
+import { Botao, Container, Container_Formulario, Container_Input, Formu, Input, Label, Porvolta, Select, Span, Titulo } from "../../style";
 import { useForm } from "react-hook-form"
 // import { FaSearch } from "react-icons/fa";
 import { z } from "zod"
@@ -50,6 +50,7 @@ const createUserFormSchema  = z.object ({
 function Update_Participante() {
   const [participantes , setParticipantes] = useState< partipantes >()
   const [loading , setLoading] = useState(true)
+  const [processos , setPrecesso] = useState<partipantes[]>()
   const [error, setError] = useState(null)
   const { id } = useParams();
 
@@ -102,13 +103,23 @@ const sucesso = () => {
     })()
     setLoading(true)
   },[])
+  useEffect (() => {
+    async function Buscar() {
+      await postar
+      .get("Processos")
+      .then ((res) => {
+        console.log(res.data)
+        setPrecesso(res.data)
+      })
+      .catch((error) => setError(error.message))
+      console.log("passei")
+    }
+    Buscar()
+   },[])
 
   return (
     <>
-    <Menu/>
-    <Container>
-    
-        <ToastContainer
+    <ToastContainer
       position="bottom-right"
       autoClose={5000}
       hideProgressBar={false}
@@ -120,54 +131,142 @@ const sucesso = () => {
       pauseOnHover
       theme="colored"
       />
+    <Menu/>
+    
+    <Container>
+    
+       
          
-         { loading  ?
-      
-         <>
-            <Formu 
-         action="" 
-         onSubmit={handleSubmit(createUser)}
-         >
-           <Titulo>Atualizando Candidatos</Titulo>
-          <Input 
-            $primary type="text" 
-            placeholder="Nome"
-            defaultValue={participantes?.nome}
-            {...register('nome')}
-            />
-            {errors.nome && <Span>{errors.nome.message}</Span>}
-            <Input 
-            $primary  type="email"
-            placeholder="Email"
-            defaultValue={participantes?.email}
-            {...register('email')}
-            />
-            {errors.email && <Span>{errors.email.message}</Span>}
-            <Input $primary  
-            type="text" 
-            defaultValue={participantes?.processo_seletivo}
-            placeholder="Processo Seletivo"
-            {...register('processo_seletivo')}
-            />
-            {errors.processo_seletivo && <Span>{errors.processo_seletivo.message}</Span>}
-            <Input $primary 
-            type="tel" 
-            defaultValue={participantes?.telefone}
-            placeholder="Telefone"
-            {...register('telefone')}
-            />
-            {errors.telefone && <Span>{errors.telefone.message}</Span>}
-           { loading &&
-            <Botao type="submit">
-              Cadastrar
-              </Botao>}
-              </Formu>
-           </> 
-           : 
-           <>
-           <h1>carregando</h1>
-           </> }
-     
+         <Container_Formulario>
+    <Titulo>Atualiza</Titulo>
+    
+    <Formu 
+      action="" 
+      onSubmit={handleSubmit(createUser)}
+      >
+        <Container_Input>
+          <Porvolta>
+          <Label htmlFor="nome">Nome</Label>
+         <Input 
+          $primary type="text" 
+          placeholder="Nome"
+          defaultValue={participantes?.nome}
+          {...register('nome')}
+          />
+          {errors.nome && <Span>{errors.nome.message}</Span>}
+          </Porvolta>
+          <Porvolta>
+            <Label htmlFor="email">Email</Label>
+                    <Input 
+                     defaultValue={participantes?.email}
+                    $primary  type="email"
+                    placeholder="Email"
+                    {...register('email')}
+                    />
+                    {errors.email && <Span>{errors.email.message}</Span>}
+          </Porvolta>
+         <Porvolta>
+          <Label htmlFor="Processo">Processo</Label>
+         <Select  
+          id="processo" 
+          $primary
+          defaultValue={participantes?.processo_seletivo}
+          {...register('processo_seletivo')}
+          >
+           <option disabled selected>
+          { participantes?.processo_seletivo}
+          </option>
+          { processos && processos.map((relator) => (
+          <option key={relator.id} value={relator.nome}>{relator.nome}</option>
+          ))}
+          </Select>
+          {errors.processo_seletivo && <Span>{errors.processo_seletivo.message}</Span>}
+
+         </Porvolta>
+         <Porvolta>
+          <Label htmlFor="Telefone">Telefone</Label>
+         <Input $primary 
+          type="tel" 
+          defaultValue={participantes?.telefone}
+          placeholder="Telefone"
+          {...register('telefone')}
+          />
+          {errors.telefone && <Span>{errors.telefone.message}</Span>}
+         </Porvolta>
+          {/* <Porvolta>
+            <Label htmlFor="Cep">Cep</Label>
+          <Input $primary
+          type="number"
+          placeholder="Digite seu Cep" 
+          onChange={(e => setCep(e.target.value))} />
+          </Porvolta>
+          
+          
+
+          { 
+          error  || dados?.erro === true  ?
+          <>
+            <h1>Nao encontrado</h1>
+            </>
+            : 
+            <>
+          {loading ? <> 
+            { 
+              //  aparece todos os dado de cep se for maior q 7
+              abrecep  && 
+              <>
+              <Porvolta>
+                <Label htmlFor="logradouro">Logradouro</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.logradouro}/>
+
+              </Porvolta>
+              <Porvolta>
+                <Label htmlFor="Bairro">Bairro</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.bairro}/>                
+              </Porvolta>
+              
+              {
+              dados?.complemento && 
+              <Porvolta>
+              <Label htmlFor="complemento">Complemento</Label>
+              <Input type="text" 
+              disabled  
+              value={dados?.complemento}/>
+              </Porvolta> 
+              }
+             <Porvolta>
+              <Label htmlFor="Localidade">Localidade</Label>
+               <Input type="text" 
+               disabled 
+                value={dados?.localidade}/>
+              </Porvolta>
+              <Porvolta>
+                <Label htmlFor="Estado">Estado</Label>
+              <Input type="text" 
+              disabled 
+               value={dados?.uf}/>
+              </Porvolta>
+              </>
+              }
+          </> : <h1>carregando</h1>}  
+            
+              </>
+            }
+             {enviado && (
+            <>
+                <Navigate to="/listagemUsuario" replace={true} />
+            </> 
+         )} */}
+          </Container_Input>
+          <Botao type="submit">
+            Cadastrar
+            </Botao>
+      </Formu>
+    </Container_Formulario>
     </Container>
     </>
     

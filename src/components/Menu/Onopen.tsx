@@ -63,22 +63,20 @@ const Bar  = ({isOpen   , visible ,  } : BarProps) => {
     
       
     <MenunoOpen>
-        {/* <ContainerMenuOpen> */}
-        <div>
+        <>
             <Open 
                 onClick={() => isOpen( )}>
                 { 
                 !visible ? 
-                <FaBars size={26}/> 
+                <FaBars size={20}/> 
                 : 
-                <FaTimes size={26}  />
+                <FaTimes size={20}  />
                 }
                 </Open>
-        </div>
-        <div>
+        </>
+        <>
                 <H1 >RhSource</H1> 
-        </div>
-       {/* </ContainerMenuOpen> */}
+        </>
     </MenunoOpen>
     
    
