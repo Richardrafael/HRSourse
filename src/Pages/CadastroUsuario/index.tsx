@@ -13,8 +13,7 @@ import {
   Formu, 
   Input, 
   Label, 
-  Porvolta, 
-  Select, 
+  Porvolta,  
   Span,
   Titulo
  } from "../../style"
@@ -35,16 +34,16 @@ interface Cep {
 
 }
 
-interface partipantes {
-  nome : string,
-  cargo : string,
-  empresa : string ,
-  QuantAprovado :number
-  id : number,
-  DataFim : string,
-  DataInicio : string
+// interface partipantes {
+//   nome : string,
+//   cargo : string,
+//   empresa : string ,
+//   QuantAprovado :number
+//   id : number,
+//   DataFim : string,
+//   DataInicio : string
   
-}
+// }
 
 // tipagem inteligente pega todos os dados de cada createUserFormSchema
 
@@ -67,9 +66,12 @@ const createUserFormSchema  = z.object ({
   .email("Formato de e-mail inválido")
   .toLowerCase() ,
   telefone : z.string() ,
-  processo_seletivo : z.string().nonempty("Processo é obrigatório"),
-  // cargo : z.string(),
-  // cep : z.string().max(7, "Cep invalido").min(6 , "Cep tem 7 caracteres")
+  cep : z.string() , 
+  rua : z.string(),
+  bairro : z.string(),
+  cidade : z.string(),
+  estado : z.string(),
+  complemento : z.string(),
 
 })
 
@@ -78,10 +80,11 @@ function CadastroUsuarios() {
   const [cep , setCep] = useState("")
   const [dados , setDados ] = useState< Cep | undefined >()
   const [error , setError] = useState(null)
-  const [processos , setPrecesso] = useState<partipantes[]>()
+  // const [processos , setPrecesso] = useState<partipantes[]>()
   const [loading , setLoading ] = useState(true)
-  const [abrecep , setAbrecep] = useState(true)
+  const [abrecep , setAbrecep] = useState(false)
   const [enviado , setEnviado] = useState(false)
+  
   // const [enviado , setEnviado] = useState(false)
   // register junta todos em obj , formState pega os erros  
   const { register , handleSubmit , formState: {errors}  }
@@ -92,7 +95,7 @@ function CadastroUsuarios() {
 
   async function createUser (data : any) {
       setLoading(true)
-      // console.log(data)
+      console.log(data)
       try {
        await postar.post('/participantes' , data)
       // .then(function ( response : any ){
@@ -114,16 +117,16 @@ function CadastroUsuarios() {
         await api
         .get(`${cep}/json`)
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           setDados(res.data);
         })
         .catch((error) => setError(error.message))
-        console.log("passei")
+        // console.log("passei")
         setLoading(true)
         setAbrecep(true)
         
         }
-        console.log("passei")
+        // console.log("passei")
         Buscar();
         setLoading(true);
       }else {
@@ -131,19 +134,19 @@ function CadastroUsuarios() {
       }
   }, [cep.length > 7])
 
-  useEffect (() => {
-    async function Buscar() {
-      await postar
-      .get("Processos")
-      .then ((res) => {
-        console.log(res.data)
-        setPrecesso(res.data)
-      })
-      .catch((error) => setError(error.message))
-      console.log("passei")
-    }
-    Buscar()
-   },[])
+  // useEffect (() => {
+  //   async function Buscar() {
+  //     await postar
+  //     .get("Processos")
+  //     .then ((res) => {
+  //       console.log(res.data)
+  //       setPrecesso(res.data)
+  //     })
+  //     .catch((error) => setError(error.message))
+  //     console.log("passei")
+  //   }
+  //   Buscar()
+  //  },[])
 
   const sucesso = () => {
     toast.success('Cadastrado com sucesso', {
@@ -204,7 +207,7 @@ function CadastroUsuarios() {
                     />
                     {errors.email && <Span>{errors.email.message}</Span>}
           </Porvolta>
-         <Porvolta>
+         {/* <Porvolta>
           <Label htmlFor="Processo">Processo</Label>
          <Select  
           id="processo" 
@@ -221,7 +224,7 @@ function CadastroUsuarios() {
           </Select>
           {errors.processo_seletivo && <Span>{errors.processo_seletivo.message}</Span>}
 
-         </Porvolta>
+         </Porvolta> */}
          <Porvolta>
           <Label htmlFor="Telefone">Telefone</Label>
          <Input $primary 
@@ -235,7 +238,9 @@ function CadastroUsuarios() {
             <Label htmlFor="Cep">Cep</Label>
           <Input $primary
           type="number"
+          id="aa"
           placeholder="Digite seu Cep" 
+          {...register('cep')}
           onChange={(e => setCep(e.target.value))} />
           </Porvolta>
           
@@ -248,53 +253,59 @@ function CadastroUsuarios() {
             </>
             : 
             <>
-          {loading ? <> 
+          {
+           loading ? <> 
             { 
-              //  aparece todos os dado de cep se for maior q 7
-              abrecep  && 
+             abrecep  && 
               <>
               <Porvolta>
                 <Label htmlFor="logradouro">Logradouro</Label>
               <Input type="text" 
-              disabled  
+              {...register('rua')}
               value={dados?.logradouro}/>
 
               </Porvolta>
               <Porvolta>
                 <Label htmlFor="Bairro">Bairro</Label>
               <Input type="text" 
-              disabled  
+              {...register('bairro')}
               value={dados?.bairro}/>                
               </Porvolta>
               
+             <Porvolta>
+              <Label htmlFor="Localidade">Cidade</Label>
+               <Input type="text" 
+               disabled 
+               {...register('cidade')}
+               value={dados?.localidade}/>
+              </Porvolta>
+              <Porvolta>
+                <Label htmlFor="Estado">Estado</Label>
+              <Input type="text" 
+              disabled 
+              {...register('estado')}
+              value={dados?.uf}/>
+              </Porvolta>
               {
               dados?.complemento && 
               <Porvolta>
               <Label htmlFor="complemento">Complemento</Label>
               <Input type="text" 
               disabled  
+              {...register('complemento')}
               value={dados?.complemento}/>
               </Porvolta> 
               }
-             <Porvolta>
-              <Label htmlFor="Localidade">Localidade</Label>
-               <Input type="text" 
-               disabled 
-                value={dados?.localidade}/>
-              </Porvolta>
-              <Porvolta>
-                <Label htmlFor="Estado">Estado</Label>
-              <Input type="text" 
-              disabled 
-               value={dados?.uf}/>
-              </Porvolta>
+              </> 
+             }   
+             </>
+             : 
+              <>
+              <h1>carregando</h1>
               </>
-              }
-          </> : <h1>carregando</h1>}  
-            
-              </>
-            }
-             {enviado && (
+           } </>}
+             
+         {enviado && (
             <>
                 <Navigate to="/listagemUsuario" replace={true} />
             </> 
