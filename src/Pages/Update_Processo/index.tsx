@@ -73,8 +73,8 @@ function Update_Processo() {
   const [empresa , setEmpresa] = useState("")
   const [QuantAprovado, setQuantAprovado] = useState("")
   const [data,setData] =useState([])
-  const [cargo , setCargo] = useState("")
-  const [visible,setIvisible] =useState(true)
+  const [ , setCargo] = useState("")
+  // const [visible,setIvisible] =useState(true)
   const [error, setError] = useState(null)
   const { id } = useParams();
 
@@ -156,10 +156,10 @@ const sucesso = () => {
    
   }
   
-  const editar = () =>  {
-    setIvisible(!visible)
-    console.log("passei")
-  }
+  // const editar = () =>  {
+  //   setIvisible(!visible)
+  //   console.log("passei")
+  // }
 
   
   return (

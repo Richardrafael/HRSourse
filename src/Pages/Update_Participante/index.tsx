@@ -139,7 +139,13 @@ const sucesso = () => {
          
          <Container_Formulario>
     <Titulo>Atualiza</Titulo>
-    
+    {loading && 
+    <h1>hchdjkhcj</h1>
+}
+{error && 
+    <h1>hchdjkhcj</h1>
+
+    }
     <Formu 
       action="" 
       onSubmit={handleSubmit(createUser)}
